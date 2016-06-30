@@ -1,0 +1,77 @@
+
+<html>
+  <head>
+    <style>
+      body {
+        font-family: "Helvetica Neue", helvetica, arial;
+        padding: 15px;
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      ul li {
+        line-height: 1.4;
+      }
+    </style>
+
+    <script>
+function WebSocketTest(){
+ if (window.WebSocket){
+    alert("WebSocket is supported by your Browser!");
+	
+      //var host = location.origin.replace(/^http/, 'ws');
+	  // var ws = new WebSocket(host);
+      
+	  var ws = new WebSocket('ws://echo.websocket.org/');
+
+		ws.onopen = function() {
+			
+				var msg="Hello Socket!";
+                ws.send(msg);
+				alert("Message is sent : " + msg);
+		};
+	 
+
+	 /*
+	{	
+	   console.log("here1");
+	   var msg="Hello Socket!";
+                ws.send(msg);
+				console.log("here2");
+        alert("Message is sent : " + msg);
+     };*/ 
+
+     ws.onmessage = function (evt) 
+               { 
+                  var received_msg = evt.data;
+                  alert("Message is received : " + evt.data);
+               };
+
+
+     ws.onclose = function()
+     { 
+
+        alert("Connection is closed..."); 
+     };
+
+     ws.onerror = function()
+     { 
+                alert("WebSocket error..."); 
+     };
+
+}
+else {
+        alert("WebSocket NOT supported by your Browser!");
+      }
+}
+    </script>
+  </head>
+  <body>
+    <a href="javascript:WebSocketTest()">Run WebSocket</a>
+    <ul id='pings'></ul>
+  </body>
+</html>
